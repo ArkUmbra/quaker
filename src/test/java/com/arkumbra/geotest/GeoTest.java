@@ -1,5 +1,8 @@
 package com.arkumbra.geotest;
 
+import com.arkumbra.geotest.jma.xml.Entry;
+import com.arkumbra.geotest.jma.xml.Feed;
+import com.arkumbra.geotest.jma.xml.Root;
 import com.arkumbra.geotest.usgs.json.Feature;
 import com.arkumbra.geotest.usgs.json.SummaryResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,8 +16,27 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.client.RestTemplate;
+
+import javax.print.attribute.standard.MediaSize;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class GeoTest {
 
@@ -29,14 +51,11 @@ public class GeoTest {
 
     /* usgs data */
     @Test
-    public void test() throws JsonProcessingException {
+    public void testUsgsGetRecentEqDataAndSaveIfNew() throws JsonProcessingException {
         String url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
-//        System.out.println(response.getBody());
         SummaryResponse body = objectMapper.readValue(response.getBody(), SummaryResponse.class);
-//        System.out.println(body);
-//        System.out.println(body.type);
 
         MongoClient mongoClient = MongoClients.create();
         MongoDatabase db = mongoClient.getDatabase("test");
@@ -44,13 +63,11 @@ public class GeoTest {
         MongoCollection<Document> collection = db.getCollection("eqs");
         System.out.println("Current eqs recorded : " + collection.countDocuments());
 
+        System.out.println(body.features.size() + " earthquakes in last hour");
         for (Feature feature : body.features) {
             Document doc = Document.parse(objectMapper.writeValueAsString(feature));
 
-//            FindIterable<Document> result = collection.find(createIdFilter(feature.id));
-
             long matches = collection.countDocuments(createIdFilter(feature.id));
-//            System.out.println("Found " + matches + " results for id " + feature.id);
 
             if (matches == 0) {
                 System.out.println("Inserting " + doc.toJson());
@@ -59,30 +76,91 @@ public class GeoTest {
 
 
         }
-
-
-
-/*        MongoCollection<Document> collection = db.getCollection("summaryresponse");
-
-        System.out.println("Current items : " + collection.countDocuments());
-        //BasicDBObject obj = BasicDBObject.parse(objectMapper.writeValueAsString(body));
-        Document doc = Document.parse(objectMapper.writeValueAsString(body));
-        collection.insertOne(doc);
-*/
     }
 
     private Bson createIdFilter(String id) {
         return Filters.eq("id", id);
     }
 
+    // http://www.j-shis.bosai.go.jp/map/api/pshm/version/case/eqcode/meshinfo.format?position=position&epsg=epsg&options
+    // http://www.j-shis.bosai.go.jp/map/api/pshm/Y2019/MAX/TTL_MTTL/meshinfo.geojson?position=position&epsg=epsg&options
+    // http://www.j-shis.bosai.go.jp/map/api/pshm/Y2010/MAX/TTL_MTTL/meshinfo.geojson?meshcode=5440008644N&attr=T30_I45_PS
+
+    @Test
+    public void testJshisEarthquakeApi() {
+
+
+    }
+
+    @Test
+    public void testJmaEarthquakeApi() throws UnsupportedEncodingException, FileNotFoundException {
+        restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        String url = "http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml";
+
+
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+
+        System.out.println(response.getHeaders());
+        System.out.println(response.getBody());
+
+        System.out.println(new String("地震テスト".getBytes("UTF-8")));
+
+        PrintWriter file = new PrintWriter("eq.txt");
+        file.println(response.getBody());
+    }
+
+    @Test
+    public void testJmaEarthquakeApi_UnmarshalXml() throws UnsupportedEncodingException, FileNotFoundException {
+        restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+
+        String url = "http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml";
+
+
+        Feed feed = restTemplate.getForObject(url, Feed.class);
+
+        System.out.println(feed);
+        System.out.println(feed.getTitle());
+    }
+
+    @Test
+    public void testJmaEarthquakeApi_UnmarshalXmlOneLayerUp() throws UnsupportedEncodingException, FileNotFoundException {
+        restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        String url = "http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml";
+
+
+        Root root = restTemplate.getForObject(url, Root.class);
+
+        System.out.println(root);
+    }
 
 
     @Test
-    public void testOther() {
-        String url = "http://p2pquake.ddo.jp/p2pquake/api_userquake.pl?date=01/15";
+    public void testJmaEarthquakeApi_UnmarshalXml2() throws UnsupportedEncodingException, FileNotFoundException, JAXBException {
+        Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
+        restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+//        http://www.data.jma.go.jp/developer/xml/feed/eqvol_l.xml
+//        http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml
+        String url = "http://www.data.jma.go.jp/developer/xml/feed/eqvol_l.xml";
+
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        String xml = response.getBody();
+//        System.out.println(xml);
 
-        System.out.println(response.getBody());
+        JAXBContext context = JAXBContext.newInstance(Feed.class);
+        Unmarshaller um = context.createUnmarshaller();
+//        um.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
 
+        Feed feed = (Feed) um.unmarshal(new StreamSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))));
+
+//        Feed feed = (Feed) jaxb2Marshaller.unmarshal(new StreamSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))));
+
+        Set<String> categories = new HashSet<>();
+        for (Entry entry : feed.entry) {
+            categories.add(entry.title);
+        }
+
+        System.out.println(feed);
+//        System.out.println(categories);
     }
+
 }
