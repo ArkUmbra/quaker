@@ -1,6 +1,7 @@
 package com.arkumbra.geotest;
 
 import com.arkumbra.geotest.jma.xml.Entry;
+import com.arkumbra.geotest.jma.xml.EventType;
 import com.arkumbra.geotest.jma.xml.Feed;
 import com.arkumbra.geotest.jma.xml.Root;
 import com.arkumbra.geotest.usgs.json.Feature;
@@ -26,6 +27,7 @@ import javax.print.attribute.standard.MediaSize;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
@@ -138,8 +140,7 @@ public class GeoTest {
     public void testJmaEarthquakeApi_UnmarshalXml2() throws UnsupportedEncodingException, FileNotFoundException, JAXBException {
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
         restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-//        http://www.data.jma.go.jp/developer/xml/feed/eqvol_l.xml
-//        http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml
+
         String url = "http://www.data.jma.go.jp/developer/xml/feed/eqvol_l.xml";
 
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -152,15 +153,29 @@ public class GeoTest {
 
         Feed feed = (Feed) um.unmarshal(new StreamSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))));
 
-//        Feed feed = (Feed) jaxb2Marshaller.unmarshal(new StreamSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))));
 
-        Set<String> categories = new HashSet<>();
         for (Entry entry : feed.entry) {
-            categories.add(entry.title);
+            pullSpecificJmaFeed(entry.link.getHref(), entry.getEventType());
         }
 
         System.out.println(feed);
 //        System.out.println(categories);
     }
+
+    private void pullSpecificJmaFeed(String url, EventType eventType) {
+
+        if (eventType == EventType.IntensityHypocentre) {
+
+        }
+
+    }
+
+//    view-source:http://xml.kishou.go.jp/jmaxml1/body/seismology1/jmx_seis.xsd
+
+
+}
+
+@XmlRootElement(name="link", namespace="http://www.w3.org/2005/Atom")
+class Report {
 
 }
