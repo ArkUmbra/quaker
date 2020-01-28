@@ -1,5 +1,6 @@
 package com.arkumbra.geotest;
 
+import com.arkumbra.geotest.jma.extendedgen.SeismicReport;
 import com.arkumbra.geotest.jma.xml.Entry;
 import com.arkumbra.geotest.jma.xml.EventType;
 import com.arkumbra.geotest.jma.xml.Feed;
@@ -7,38 +8,25 @@ import com.arkumbra.geotest.jma.xml.Root;
 import com.arkumbra.geotest.usgs.json.Feature;
 import com.arkumbra.geotest.usgs.json.SummaryResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
-import org.bson.BsonDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.*;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.client.RestTemplate;
 
-import javax.print.attribute.standard.MediaSize;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.transform.stream.StreamSource;
-import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class GeoTest {
 
@@ -49,6 +37,8 @@ public class GeoTest {
     public void setUp() {
         restTemplate = new RestTemplate();
         objectMapper = new ObjectMapper();
+
+        restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
     }
 
     /* usgs data */
@@ -75,8 +65,6 @@ public class GeoTest {
                 System.out.println("Inserting " + doc.toJson());
                 collection.insertOne(doc);
             }
-
-
         }
     }
 
@@ -95,49 +83,7 @@ public class GeoTest {
     }
 
     @Test
-    public void testJmaEarthquakeApi() throws UnsupportedEncodingException, FileNotFoundException {
-        restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-        String url = "http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml";
-
-
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-
-        System.out.println(response.getHeaders());
-        System.out.println(response.getBody());
-
-        System.out.println(new String("地震テスト".getBytes("UTF-8")));
-
-        PrintWriter file = new PrintWriter("eq.txt");
-        file.println(response.getBody());
-    }
-
-    @Test
-    public void testJmaEarthquakeApi_UnmarshalXml() throws UnsupportedEncodingException, FileNotFoundException {
-        restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-
-        String url = "http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml";
-
-
-        Feed feed = restTemplate.getForObject(url, Feed.class);
-
-        System.out.println(feed);
-        System.out.println(feed.getTitle());
-    }
-
-    @Test
-    public void testJmaEarthquakeApi_UnmarshalXmlOneLayerUp() throws UnsupportedEncodingException, FileNotFoundException {
-        restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-        String url = "http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml";
-
-
-        Root root = restTemplate.getForObject(url, Root.class);
-
-        System.out.println(root);
-    }
-
-
-    @Test
-    public void testJmaEarthquakeApi_UnmarshalXml2() throws UnsupportedEncodingException, FileNotFoundException, JAXBException {
+    public void testJmaEarthquakeApi() throws UnsupportedEncodingException, FileNotFoundException, JAXBException {
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
         restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 
@@ -158,24 +104,45 @@ public class GeoTest {
             pullSpecificJmaFeed(entry.link.getHref(), entry.getEventType());
         }
 
-        System.out.println(feed);
+//        System.out.println(feed);
 //        System.out.println(categories);
     }
 
-    private void pullSpecificJmaFeed(String url, EventType eventType) {
+    private void pullSpecificJmaFeed(String url, EventType eventType) throws JAXBException, UnsupportedEncodingException {
+        switch (eventType) {
+            case Hypocentre:
+            case SeismicIntensity:
+            case IntensityHypocentre:
+                SeismicReport report = pullJmaItem(url, SeismicReport.class);
+                break;
 
-        if (eventType == EventType.IntensityHypocentre) {
-
+            case EruptionObservations:
+            case Volcano:
+            case VolcanicAshForecastDetailed:
+            case VolcanicAshForecastPeriodic:
+//                System.out.println("Skipping for " + eventType);
+                break;
+            default: System.out.println("Unknown type " + eventType);
         }
 
     }
 
-//    view-source:http://xml.kishou.go.jp/jmaxml1/body/seismology1/jmx_seis.xsd
+    private <T> T pullJmaItem(String url, Class<T> clazz) throws JAXBException, UnsupportedEncodingException {
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        String xml = response.getBody();
+        System.out.println(xml);
+
+        JAXBContext context = JAXBContext.newInstance(clazz);
+        Unmarshaller um = context.createUnmarshaller();
+//        um.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
+
+        JAXBElement<T> unmarshalled = um.unmarshal(new StreamSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))),
+                clazz);
+//        System.out.println(unmarshalled.getValue());
+        return unmarshalled.getValue();
+    }
+
 
 
 }
 
-@XmlRootElement(name="link", namespace="http://www.w3.org/2005/Atom")
-class Report {
-
-}
