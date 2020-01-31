@@ -5,6 +5,11 @@ import java.util.Date;
 
 public class Intensity {
 
+  public enum MeasurementType {
+    MAGNITUDE,
+    SHINDO
+  }
+
   private final MeasurementType type;
   private final BigDecimal intensityValue;
   private final boolean wasRevised;
@@ -33,9 +38,17 @@ public class Intensity {
   public Date getRevisionDate() {
     return revisionDate;
   }
+
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("Intensity{");
+    sb.append("type=").append(type);
+    sb.append(", intensityValue=").append(intensityValue);
+    sb.append(", wasRevised=").append(wasRevised);
+    sb.append(", revisionDate=").append(revisionDate);
+    sb.append('}');
+    return sb.toString();
+  }
 }
 
-enum MeasurementType {
-  MAGNITUDE,
-  SHINDO
-}
+

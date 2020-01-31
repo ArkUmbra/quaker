@@ -21,6 +21,15 @@ public class Issuer {
   public String getIdGivenByIssuer() {
     return idGivenByIssuer;
   }
+
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("Issuer{");
+    sb.append("issuer=").append(issuer);
+    sb.append(", idGivenByIssuer='").append(idGivenByIssuer).append('\'');
+    sb.append('}');
+    return sb.toString();
+  }
 }
 
 

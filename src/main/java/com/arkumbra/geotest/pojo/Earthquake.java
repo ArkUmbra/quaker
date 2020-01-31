@@ -27,5 +27,13 @@ public class Earthquake {
     return issuer;
   }
 
-
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("Earthquake{");
+    sb.append("intensity=").append(intensity);
+    sb.append(", location=").append(location);
+    sb.append(", issuer=").append(issuer);
+    sb.append('}');
+    return sb.toString();
+  }
 }

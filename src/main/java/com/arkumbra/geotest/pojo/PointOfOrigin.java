@@ -2,13 +2,13 @@ package com.arkumbra.geotest.pojo;
 
 import java.math.BigDecimal;
 
-public class Origin {
+public class PointOfOrigin {
 
   private final BigDecimal latitude;
   private final BigDecimal longitude;
   private final BigDecimal depth;
 
-  public Origin(BigDecimal latitude, BigDecimal longitude, BigDecimal depth) {
+  public PointOfOrigin(BigDecimal latitude, BigDecimal longitude, BigDecimal depth) {
     this.latitude = latitude;
     this.longitude = longitude;
     this.depth = depth;

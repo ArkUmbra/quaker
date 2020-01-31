@@ -57,7 +57,9 @@ public class JmaService {
         case IntensityHypocentre:
           SeismicReport report = pullJmaItem(url, SeismicReport.class);
           Earthquake eq = EarthquakeFactory.createEarthquake(report);
-          earthquakes.add(eq);
+          if (eq != null) {
+            earthquakes.add(eq);
+          }
       }
 //      if (EARTHQUAKE_EVENT_TYPES.contains(EventType.convert(entry.title))) {
 //        pullSpecificJmaFeed(entry.link.getHref(), entry.getEventType());
@@ -76,7 +78,7 @@ public class JmaService {
     return um;
   }
 
-  private <T> T pullJmaItem(String url, Class<T> clazz) throws JAXBException, UnsupportedEncodingException {
+  public <T> T pullJmaItem(String url, Class<T> clazz) throws JAXBException, UnsupportedEncodingException {
     ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
     String xml = response.getBody();
 //    System.out.println(xml);

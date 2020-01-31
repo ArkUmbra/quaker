@@ -8,7 +8,7 @@ import com.arkumbra.geotest.jma.extendedgen.SeismicReport;
 import com.arkumbra.geotest.jma.xml.Entry;
 import com.arkumbra.geotest.jma.xml.EventType;
 import com.arkumbra.geotest.jma.xml.Feed;
-import com.arkumbra.geotest.pojo.Origin;
+import com.arkumbra.geotest.pojo.PointOfOrigin;
 import com.arkumbra.geotest.usgs.json.Feature;
 import com.arkumbra.geotest.usgs.json.SummaryResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -159,28 +159,29 @@ public class GeoTest {
     public void jmaHypocentreDatumSplitTest() {
         String datum = "+37.0+141.4-50000/";
 
-        Origin origin = EarthquakeFactory.hypocentreDatumToLatLon(datum);
-        System.out.println(origin);
-        assertEquals(new BigDecimal("37.0"), origin.getLatitude());
-        assertEquals(new BigDecimal("141.4"), origin.getLongitude());
-        assertEquals(new BigDecimal("50000"), origin.getDepth());
+        PointOfOrigin pointOfOrigin = EarthquakeFactory.hypocentreDatumToOrigin(datum);
+        System.out.println(pointOfOrigin);
+        assertEquals(new BigDecimal("37.0"), pointOfOrigin.getLatitude());
+        assertEquals(new BigDecimal("141.4"), pointOfOrigin.getLongitude());
+        assertEquals(new BigDecimal("50000"), pointOfOrigin.getDepth());
 
 
         datum = "+37.0-141.4-50000/";
-        origin = EarthquakeFactory.hypocentreDatumToLatLon(datum);
-        System.out.println(origin);
-        assertEquals(new BigDecimal("37.0"), origin.getLatitude());
-        assertEquals(new BigDecimal("-141.4"), origin.getLongitude());
-        assertEquals(new BigDecimal("50000"), origin.getDepth());
+        pointOfOrigin = EarthquakeFactory.hypocentreDatumToOrigin(datum);
+        System.out.println(pointOfOrigin);
+        assertEquals(new BigDecimal("37.0"), pointOfOrigin.getLatitude());
+        assertEquals(new BigDecimal("-141.4"), pointOfOrigin.getLongitude());
+        assertEquals(new BigDecimal("50000"), pointOfOrigin.getDepth());
 
 
         datum = "-37.0-141.4-50000/";
-        origin = EarthquakeFactory.hypocentreDatumToLatLon(datum);
-        System.out.println(origin);
-        assertEquals(new BigDecimal("-37.0"), origin.getLatitude());
-        assertEquals(new BigDecimal("-141.4"), origin.getLongitude());
-        assertEquals(new BigDecimal("50000"), origin.getDepth());
+        pointOfOrigin = EarthquakeFactory.hypocentreDatumToOrigin(datum);
+        System.out.println(pointOfOrigin);
+        assertEquals(new BigDecimal("-37.0"), pointOfOrigin.getLatitude());
+        assertEquals(new BigDecimal("-141.4"), pointOfOrigin.getLongitude());
+        assertEquals(new BigDecimal("50000"), pointOfOrigin.getDepth());
     }
+
 
 
 
