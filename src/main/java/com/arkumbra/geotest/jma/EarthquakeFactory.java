@@ -13,6 +13,17 @@ import jp.go.kishou.xml.jmaxml1.body.seismology1.TypeBody;
 
 public class EarthquakeFactory {
 
+  /*
+   Splits +37.0+141.4-50000/ into
+   0 = 37.0
+   1 = 141.4
+   2 = -50000
+
+   i.e. splits on - or + and retains the character, and then splits/discards the trailing slash
+  */
+  private static final String REGEX_SPLIT_DATUM_RETAIN_SIGN = "((?=[-]))|((?=[+])|/)";
+
+
   public static Earthquake createEarthquake(SeismicReport jmaSeismicReport) {
     List<Intensity> intensities = new ArrayList<>();
 
@@ -21,7 +32,7 @@ public class EarthquakeFactory {
 
 
     Location location = new Location(
-        hypocentreDatumToLatLon(hypocentreDatum),
+            hypocentreDatumToOrigin(hypocentreDatum),
         null,
         null
     );
@@ -34,30 +45,17 @@ public class EarthquakeFactory {
     return eq;
   }
 
-  // "北緯３７．０度　東経１４１．４度　深さ　５０ｋｍ" datum="日本測地系"
-  // +37.0+141.4-50000/
-//  static String DATUM_SPLIT_REGEX = "¥+|-";
-  static String DATUM_SPLIT_REGEX = "[+-]";
-  static public final String WITH_DELIMITER = "(?=%1$s)";
   /*
-   Splits +37.0+141.4-50000/ into
-   0 =
-   1 = 37.0
-   2 = 141.4
-   3 = -50000
-
-    Not perfect, but hey...
+    Splits up a hypocentre datum string into an Origin object.
+    JMA string format is as follows:
+    +37.0+141.4-50000/
    */
-  static public final String RETAIN_MINUSES = "((?=[-]))|[+/]";
+  public static Origin hypocentreDatumToOrigin(String hypocentreDatum) {
+    String[] splits = hypocentreDatum.split(REGEX_SPLIT_DATUM_RETAIN_SIGN);
 
-  public static Origin hypocentreDatumToLatLon(String hypocentreDatum) {
-//    String[] splits = hypocentreDatum.split(DATUM_SPLIT_REGEX);
-//    String[] splits = hypocentreDatum.split(String.format(WITH_DELIMITER, DATUM_SPLIT_REGEX));
-    String[] splits = hypocentreDatum.split(RETAIN_MINUSES);
-
-    BigDecimal lat = new BigDecimal(splits[1]);
-    BigDecimal lon = new BigDecimal(splits[2]);
-    BigDecimal depthRaw = new BigDecimal(splits[3]); // negate the minus
+    BigDecimal lat = new BigDecimal(splits[0]);
+    BigDecimal lon = new BigDecimal(splits[1]);
+    BigDecimal depthRaw = new BigDecimal(splits[2]); // negate the minus
     BigDecimal depthNegated = depthRaw.negate();// negate the minus
 
     return new Origin(lat, lon, depthNegated);

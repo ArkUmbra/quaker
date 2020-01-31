@@ -165,9 +165,17 @@ public class GeoTest {
         assertEquals(new BigDecimal("141.4"), origin.getLongitude());
         assertEquals(new BigDecimal("50000"), origin.getDepth());
 
-        String datumNegatives = "-37.0-141.4-50000/";
 
-        origin = EarthquakeFactory.hypocentreDatumToLatLon(datumNegatives);
+        datum = "+37.0-141.4-50000/";
+        origin = EarthquakeFactory.hypocentreDatumToLatLon(datum);
+        System.out.println(origin);
+        assertEquals(new BigDecimal("37.0"), origin.getLatitude());
+        assertEquals(new BigDecimal("-141.4"), origin.getLongitude());
+        assertEquals(new BigDecimal("50000"), origin.getDepth());
+
+
+        datum = "-37.0-141.4-50000/";
+        origin = EarthquakeFactory.hypocentreDatumToLatLon(datum);
         System.out.println(origin);
         assertEquals(new BigDecimal("-37.0"), origin.getLatitude());
         assertEquals(new BigDecimal("-141.4"), origin.getLongitude());
