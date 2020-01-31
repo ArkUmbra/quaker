@@ -1,16 +1,21 @@
 package com.arkumbra.geotest;
 
+import static org.junit.Assert.assertEquals;
+
+import com.arkumbra.geotest.jma.EarthquakeFactory;
+import com.arkumbra.geotest.jma.JmaService;
 import com.arkumbra.geotest.jma.extendedgen.SeismicReport;
 import com.arkumbra.geotest.jma.xml.Entry;
 import com.arkumbra.geotest.jma.xml.EventType;
 import com.arkumbra.geotest.jma.xml.Feed;
-import com.arkumbra.geotest.jma.xml.Root;
+import com.arkumbra.geotest.pojo.Origin;
 import com.arkumbra.geotest.usgs.json.Feature;
 import com.arkumbra.geotest.usgs.json.SummaryResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
+import java.math.BigDecimal;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.Before;
@@ -83,6 +88,13 @@ public class GeoTest {
     }
 
     @Test
+    public void testJmaEarthquakeApiViaService() throws UnsupportedEncodingException, FileNotFoundException, JAXBException {
+        JmaService jmaService = new JmaService();
+
+        jmaService.pullLatestLongFormFeedForEarthquakes();
+    }
+
+    @Test
     public void testJmaEarthquakeApi() throws UnsupportedEncodingException, FileNotFoundException, JAXBException {
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
         restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
@@ -120,6 +132,7 @@ public class GeoTest {
             case Volcano:
             case VolcanicAshForecastDetailed:
             case VolcanicAshForecastPeriodic:
+            case VolcanicAshForecastEarlyReport:
 //                System.out.println("Skipping for " + eventType);
                 break;
             default: System.out.println("Unknown type " + eventType);
@@ -140,6 +153,25 @@ public class GeoTest {
                 clazz);
 //        System.out.println(unmarshalled.getValue());
         return unmarshalled.getValue();
+    }
+
+    @Test
+    public void jmaHypocentreDatumSplitTest() {
+        String datum = "+37.0+141.4-50000/";
+
+        Origin origin = EarthquakeFactory.hypocentreDatumToLatLon(datum);
+        System.out.println(origin);
+        assertEquals(new BigDecimal("37.0"), origin.getLatitude());
+        assertEquals(new BigDecimal("141.4"), origin.getLongitude());
+        assertEquals(new BigDecimal("50000"), origin.getDepth());
+
+        String datumNegatives = "-37.0-141.4-50000/";
+
+        origin = EarthquakeFactory.hypocentreDatumToLatLon(datumNegatives);
+        System.out.println(origin);
+        assertEquals(new BigDecimal("-37.0"), origin.getLatitude());
+        assertEquals(new BigDecimal("-141.4"), origin.getLongitude());
+        assertEquals(new BigDecimal("50000"), origin.getDepth());
     }
 
 

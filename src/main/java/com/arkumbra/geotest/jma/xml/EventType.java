@@ -8,6 +8,7 @@ public enum EventType {
     Volcano("火山の状況に関する解説情報"),
     EruptionObservations("噴火に関する火山観測報"),
     VolcanicAshForecastDetailed("降灰予報（詳細）"),
+    VolcanicAshForecastEarlyReport("降灰予報（速報）"),
     VolcanicAshForecastPeriodic("降灰予報（定時）")
     ;
 
@@ -27,6 +28,6 @@ public enum EventType {
                 return type;
             }
         }
-        throw new RuntimeException("No constant for event type " + event);
+        throw new RuntimeException("No constant for event type [" + event + "]");
     }
 }
