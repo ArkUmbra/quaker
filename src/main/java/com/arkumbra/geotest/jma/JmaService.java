@@ -15,6 +15,8 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -41,7 +43,7 @@ public class JmaService {
     EARTHQUAKE_EVENT_TYPES.add(EventType.IntensityHypocentre);
   }
 
-  public List<Earthquake> pullLatestLongFormFeedForEarthquakes() throws JAXBException, UnsupportedEncodingException {
+  public List<Earthquake> pullLatestLongFormFeedForEarthquakes() throws JAXBException, UnsupportedEncodingException, JsonProcessingException {
     List<Earthquake> earthquakes = new ArrayList<>();
 
 
@@ -56,7 +58,7 @@ public class JmaService {
         case SeismicIntensity:
         case IntensityHypocentre:
           SeismicReport report = pullJmaItem(url, SeismicReport.class);
-          Earthquake eq = EarthquakeFactory.createEarthquake(report);
+          Earthquake eq = EarthquakeFactory.createEarthquake(report, url);
           if (eq != null) {
             earthquakes.add(eq);
           }

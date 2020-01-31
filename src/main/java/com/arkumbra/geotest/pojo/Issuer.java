@@ -8,10 +8,12 @@ public class Issuer {
 
   private final IssuerType issuer;
   private final String idGivenByIssuer;
+  private final String sourceUrl;
 
-  public Issuer(IssuerType issuer, String idGivenByIssuer) {
+  public Issuer(IssuerType issuer, String idGivenByIssuer, String sourceUrl) {
     this.issuer = issuer;
     this.idGivenByIssuer = idGivenByIssuer;
+    this.sourceUrl = sourceUrl;
   }
 
   public IssuerType getIssuer() {
@@ -22,13 +24,17 @@ public class Issuer {
     return idGivenByIssuer;
   }
 
+  public String getSourceUrl() {
+    return sourceUrl;
+  }
+
   @Override
   public String toString() {
-    final StringBuilder sb = new StringBuilder("Issuer{");
-    sb.append("issuer=").append(issuer);
-    sb.append(", idGivenByIssuer='").append(idGivenByIssuer).append('\'');
-    sb.append('}');
-    return sb.toString();
+    return "Issuer{" +
+            "issuer=" + issuer +
+            ", idGivenByIssuer='" + idGivenByIssuer + '\'' +
+            ", sourceUrl='" + sourceUrl + '\'' +
+            '}';
   }
 }
 

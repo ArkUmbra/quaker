@@ -88,7 +88,7 @@ public class GeoTest {
     }
 
     @Test
-    public void testJmaEarthquakeApiViaService() throws UnsupportedEncodingException, FileNotFoundException, JAXBException {
+    public void testJmaEarthquakeApiViaService() throws UnsupportedEncodingException, FileNotFoundException, JAXBException, JsonProcessingException {
         JmaService jmaService = new JmaService();
 
         jmaService.pullLatestLongFormFeedForEarthquakes();

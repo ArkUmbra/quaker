@@ -1,0 +1,46 @@
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://xml.kishou.go.jp/jmaxml1/" xmlns:jmx="http://xml.kishou.go.jp/jmaxml1/">
+  <Control>
+    <Title>震源に関する情報</Title>
+    <DateTime>2020-01-30T10:58:29Z</DateTime>
+    <Status>通常</Status>
+    <EditorialOffice>大阪管区気象台</EditorialOffice>
+    <PublishingOffice>気象庁</PublishingOffice>
+  </Control>
+  <Head xmlns="http://xml.kishou.go.jp/jmaxml1/informationBasis1/">
+    <Title>震源に関する情報</Title>
+    <ReportDateTime>2020-01-30T19:58:00+09:00</ReportDateTime>
+    <TargetDateTime>2020-01-30T19:58:00+09:00</TargetDateTime>
+    <EventID>20200130195558</EventID>
+    <InfoType>発表</InfoType>
+    <Serial />
+    <InfoKind>震源速報</InfoKind>
+    <InfoKindVersion>1.0_1</InfoKindVersion>
+    <Headline>
+      <Text>きょう３０日１９時５５分ころ、地震がありました。</Text>
+    </Headline>
+  </Head>
+  <Body xmlns="http://xml.kishou.go.jp/jmaxml1/body/seismology1/" xmlns:jmx_eb="http://xml.kishou.go.jp/jmaxml1/elementBasis1/">
+    <Earthquake>
+      <OriginTime>2020-01-30T19:55:00+09:00</OriginTime>
+      <ArrivalTime>2020-01-30T19:55:00+09:00</ArrivalTime>
+      <Hypocenter>
+        <Area>
+          <Name>熊本県天草・芦北地方</Name>
+          <Code type="震央地名">743</Code>
+          <jmx_eb:Coordinate description="北緯３２．６度　東経１３０．６度　深さ　１０ｋｍ" datum="日本測地系">+32.6+130.6-10000/</jmx_eb:Coordinate>
+        </Area>
+      </Hypocenter>
+      <jmx_eb:Magnitude type="Mj" description="Ｍ４．０">4.0</jmx_eb:Magnitude>
+    </Earthquake>
+    <Comments>
+      <ForecastComment codeType="固定付加文">
+        <Text>この地震による津波の心配はありません。</Text>
+        <Code>0215</Code>
+      </ForecastComment>
+    </Comments>
+  </Body>
+</Report>
+

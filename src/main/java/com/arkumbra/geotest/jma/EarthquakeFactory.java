@@ -13,6 +13,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jp.go.kishou.xml.jmaxml1.body.seismology1.TypeBody;
 import jp.go.kishou.xml.jmaxml1.body.seismology1.TypeEarthquake;
 import jp.go.kishou.xml.jmaxml1.body.seismology1.TypeHypoArea;
@@ -22,6 +25,7 @@ import jp.go.kishou.xml.jmaxml1.body.seismology1.TypeIntensityDetail;
 import jp.go.kishou.xml.jmaxml1.elementbasis1.TypeCoordinate;
 
 public class EarthquakeFactory {
+  private static final ObjectMapper objectMapper = new ObjectMapper();
 
   /*
    Splits +37.0+141.4-50000/ into
@@ -35,10 +39,11 @@ public class EarthquakeFactory {
   private static final String COUNTRY_JAPAN = "Japan";
 
 
-  public static Earthquake createEarthquake(SeismicReport jmaSeismicReport) {
+  public static Earthquake createEarthquake(SeismicReport jmaSeismicReport, String sourceUrl) throws JsonProcessingException {
     TypeBody body = jmaSeismicReport.getBody();
     if (ListUtils.isEmpty(body.getEarthquake())) {
-      System.err.println("No earthquake data included on seismic report...");
+      System.err.println("No earthquake data included on seismic report... "
+              + objectMapper.writeValueAsString(jmaSeismicReport));
       return null;
     }
 
@@ -60,7 +65,8 @@ public class EarthquakeFactory {
     );
     Issuer issuer = new Issuer(
         Issuer.IssuerType.JMA,
-        jmaSeismicReport.getHead().getEventID() // TODO check if this is correct id
+        jmaSeismicReport.getHead().getEventID(), // TODO check if this is correct id
+        sourceUrl
     );
 
     Earthquake eq = new Earthquake(intensities, location, issuer);
@@ -90,21 +96,21 @@ public class EarthquakeFactory {
   }
   private static Intensity extractIntensityMagnitude(TypeBody body) {
     // new BigDecimal(body.getEarthquake().get(0).getMagnitude().get(0).getValue()),
-    TypeIntensity intensity = body.getIntensity();
-    if (intensity == null) {
-      System.err.println("No intensity found for ...");
-      return null;
-    }
-    TypeIntensityDetail observation = intensity.getObservation();
-    if (observation == null) {
-      System.err.println("No observation found for ...");
-      return null;
-    }
-    String maxShindoObserved = observation.getMaxInt();
+//    TypeIntensity intensity = body.getIntensity();
+//    if (intensity == null) {
+//      System.err.println("No intensity found for ...");
+//      return null;
+//    }
+//    TypeIntensityDetail observation = intensity.getObservation();
+//    if (observation == null) {
+//      System.err.println("No observation found for ...");
+//      return null;
+//    }
+//    String maxShindoObserved = observation.getMaxInt();
 
     return new Intensity(
-        MeasurementType.SHINDO,
-        new BigDecimal(maxShindoObserved),
+        MeasurementType.MAGNITUDE,
+            new BigDecimal(body.getEarthquake().get(0).getMagnitude().get(0).getValue()),
         false,
         null
     );
@@ -140,9 +146,9 @@ public class EarthquakeFactory {
     +37.0+141.4-50000/
    */
   public static PointOfOrigin hypocentreDatumToOrigin(String hypocentreDatum) {
-    System.out.println("Splitting " + hypocentreDatum);
+//    System.out.println("Splitting " + hypocentreDatum);
     String[] splits = hypocentreDatum.split(REGEX_SPLIT_DATUM_RETAIN_SIGN);
-    System.out.println(Arrays.toString(splits));
+//    System.out.println(Arrays.toString(splits));
 
     BigDecimal lat = new BigDecimal(splits[0]);
     BigDecimal lon = new BigDecimal(splits[1]);

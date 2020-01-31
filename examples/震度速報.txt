@@ -1,0 +1,118 @@
+{
+  "control": null,
+  "head": {
+    "title": "震度速報",
+    "reportDateTime": 1580381820000,
+    "targetDateTime": 1580381700000,
+    "targetDTDubious": null,
+    "targetDuration": null,
+    "validDateTime": null,
+    "eventID": "20200130195558",
+    "infoType": "発表",
+    "serial": "",
+    "infoKind": "震度速報",
+    "infoKindVersion": "1.0_1",
+    "headline": {
+      "text": "３０日１９時５５分ころ、地震による強い揺れを感じました。震度３以上が観測された地域をお知らせします。",
+      "information": [
+        {
+          "item": [
+            {
+              "kind": [
+                {
+                  "name": "震度３",
+                  "code": null,
+                  "condition": null
+                }
+              ],
+              "lastKind": [],
+              "areas": {
+                "area": [
+                  {
+                    "name": "熊本県熊本",
+                    "code": "741",
+                    "circle": [],
+                    "coordinate": [],
+                    "line": [],
+                    "polygon": []
+                  }
+                ],
+                "codeType": "地震情報／細分区域"
+              },
+              "any": []
+            }
+          ],
+          "type": "震度速報"
+        }
+      ]
+    }
+  },
+  "body": {
+    "naming": null,
+    "tsunami": null,
+    "earthquake": [],
+    "intensity": {
+      "forecast": null,
+      "observation": {
+        "codeDefine": {
+          "type": [
+            {
+              "value": "地震情報／都道府県等",
+              "xpath": "Pref/Code"
+            },
+            {
+              "value": "地震情報／細分区域",
+              "xpath": "Pref/Area/Code"
+            }
+          ]
+        },
+        "maxInt": "3",
+        "forecastInt": null,
+        "appendix": null,
+        "pref": [
+          {
+            "name": "熊本県",
+            "code": "43",
+            "category": null,
+            "maxInt": "3",
+            "forecastInt": null,
+            "arrivalTime": null,
+            "condition": null,
+            "revise": null,
+            "area": [
+              {
+                "name": "熊本県熊本",
+                "code": "741",
+                "category": null,
+                "maxInt": "3",
+                "forecastInt": null,
+                "arrivalTime": null,
+                "condition": null,
+                "revise": null,
+                "city": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "tokai": null,
+    "earthquakeCount": null,
+    "aftershock": null,
+    "text": null,
+    "nextAdvisory": null,
+    "comments": {
+      "warningComment": null,
+      "forecastComment": {
+        "text": "今後の情報に注意してください。",
+        "code": [
+          "0217"
+        ],
+        "codeType": "固定付加文"
+      },
+      "observationComment": null,
+      "varComment": null,
+      "freeFormComment": null
+    }
+  }
+}

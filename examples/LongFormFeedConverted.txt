@@ -1,0 +1,703 @@
+[
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 1,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 1,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 35.5,
+        "longitude": 139.1,
+        "depth": 10000
+      },
+      "region": "神奈川県西部",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200130220745",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/526bf8d6-c6a2-3f31-9db3-1f02be1bba2f.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 3,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 3,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 32.6,
+        "longitude": 130.6,
+        "depth": 10000
+      },
+      "region": "熊本県天草・芦北地方",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200130195558",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/48a41dbf-d71a-327f-bfab-f02faba6811e.xml"
+    }
+  },
+  {
+    "intensity": [],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 32.6,
+        "longitude": 130.6,
+        "depth": 10000
+      },
+      "region": "熊本県天草・芦北地方",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200130195558",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/fa8da1ad-00af-300a-b97c-aa6bcf271206.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 3,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 3,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 33,
+        "longitude": 130.6,
+        "depth": 10000
+      },
+      "region": "熊本県熊本地方",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200130115439",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/99c9c25e-a8fb-3c41-aa81-4388b29240d6.xml"
+    }
+  },
+  {
+    "intensity": [],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 33,
+        "longitude": 130.6,
+        "depth": 10000
+      },
+      "region": "熊本県熊本地方",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200130115439",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/d6825760-151e-3e60-96c5-fdf30d7c2fbd.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 1,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 1,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 31.5,
+        "longitude": 131.8,
+        "depth": 20000
+      },
+      "region": "日向灘",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200129225235",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/bfd73d0c-75a4-3b26-819a-0905e1b02aa6.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 1,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 1,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 35.7,
+        "longitude": 140.7,
+        "depth": 50000
+      },
+      "region": "千葉県北東部",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200129193232",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/42d1bddd-18d3-3f64-a55f-4d438c8ffb26.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 2,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 2,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 36.8,
+        "longitude": 140.6,
+        "depth": 10000
+      },
+      "region": "茨城県北部",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200129174523",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/b89d53fc-4e8a-399a-aa06-14a0046bed8f.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 2,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 2,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 27.2,
+        "longitude": 126.7,
+        "depth": 30000
+      },
+      "region": "沖縄本島北西沖",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200129083945",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/bdbc0f11-3a1c-3906-a99a-d3f4406f221f.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 1,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 1,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 33.9,
+        "longitude": 131.4,
+        "depth": 20000
+      },
+      "region": "周防灘",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200129070047",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/e241a5ae-f17f-3a8a-8098-31b8ab075341.xml"
+    }
+  },
+  {
+    "intensity": [],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 19.3,
+        "longitude": -78.8,
+        "depth": null
+      },
+      "region": "中米",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200129041715",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/8b95a441-e248-32f9-b911-0362691963cb.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 2,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 2,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 43,
+        "longitude": 144.9,
+        "depth": 60000
+      },
+      "region": "釧路地方中南部",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200129013345",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/75d80e41-5041-3fb8-903f-208d6f3bd51b.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 2,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 2,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 38.9,
+        "longitude": 142,
+        "depth": 50000
+      },
+      "region": "宮城県沖",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200128235953",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/0216c069-00dc-337a-8ede-b1d62e8e0b6d.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 3,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 3,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 41,
+        "longitude": 142,
+        "depth": 60000
+      },
+      "region": "青森県東方沖",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200128191357",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/54b34cda-ec02-3f89-a84c-e8a38a600a97.xml"
+    }
+  },
+  {
+    "intensity": [],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 41,
+        "longitude": 142,
+        "depth": 60000
+      },
+      "region": "青森県東方沖",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200128191357",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/332ca796-b27d-3716-aebc-f630234ad9cd.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 2,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 2,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 32.7,
+        "longitude": 130.7,
+        "depth": 10000
+      },
+      "region": "熊本県熊本地方",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200128162141",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/e3bf17c2-3ea7-3099-9e54-6d647a321166.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 2,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 2,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 39.2,
+        "longitude": 142.6,
+        "depth": 20000
+      },
+      "region": "岩手県沖",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200128122357",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/cc60884e-007d-3a46-b04f-8988abd88495.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 4,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 4,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 43.4,
+        "longitude": 146,
+        "depth": 100000
+      },
+      "region": "根室半島南東沖",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200128103618",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/041d3305-a870-3c7c-a8a9-de2b292af64f.xml"
+    }
+  },
+  {
+    "intensity": [],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 43.4,
+        "longitude": 146,
+        "depth": 100000
+      },
+      "region": "根室半島南東沖",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200128103618",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/a76e054c-50a8-325b-92dc-33731aaa7bf1.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 1,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 1,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 32.7,
+        "longitude": 130.7,
+        "depth": 10000
+      },
+      "region": "熊本県熊本地方",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200128101509",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/a230a670-6f1d-37f1-9e8d-b68cdbd10887.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 1,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 1,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 35.7,
+        "longitude": 140.1,
+        "depth": 70000
+      },
+      "region": "千葉県北西部",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200128021930",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/bda226bc-4b99-35d0-af08-5fa50b529f60.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 1,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 1,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 28.4,
+        "longitude": 129.4,
+        "depth": 10000
+      },
+      "region": "奄美大島近海",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200126185521",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/885eb292-e4e7-3f40-aaa0-29cd583a0a7b.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 1,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 1,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 33.1,
+        "longitude": 128.6,
+        "depth": 10000
+      },
+      "region": "五島列島近海",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200126074518",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/6753a9bd-cb79-379e-9774-62fa55625313.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 1,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 1,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 42.7,
+        "longitude": 145.2,
+        "depth": 50000
+      },
+      "region": "釧路沖",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200126024443",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/2d5eb114-90d5-302f-a2e9-fd39da514547.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 1,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 1,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 36.5,
+        "longitude": 141.7,
+        "depth": 30000
+      },
+      "region": "茨城県沖",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200125200129",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/266befd7-fc30-3da0-be3d-93cfb8ba2823.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 1,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 1,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 33,
+        "longitude": 131.1,
+        "depth": 10000
+      },
+      "region": "熊本県阿蘇地方",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200125190415",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/b0919e81-64a6-31f8-a30f-0a05afcf0a12.xml"
+    }
+  },
+  {
+    "intensity": [
+      {
+        "type": "SHINDO",
+        "intensityValue": 2,
+        "revisionDate": null
+      },
+      {
+        "type": "MAGNITUDE",
+        "intensityValue": 2,
+        "revisionDate": null
+      }
+    ],
+    "location": {
+      "pointOfOrigin": {
+        "latitude": 35.3,
+        "longitude": 140.6,
+        "depth": 60000
+      },
+      "region": "千葉県東方沖",
+      "country": "Japan"
+    },
+    "issuer": {
+      "issuer": "JMA",
+      "idGivenByIssuer": "20200125103444",
+      "sourceUrl": "http://www.data.jma.go.jp/developer/xml/data/92cb573e-d1e4-3e2b-bb16-48e220e9c2d8.xml"
+    }
+  }
+]
