@@ -1,2 +1,11 @@
 rootProject.name = 'GeoTest'
+include 'sensehat'
+
+sourceControl {
+    //gitRepository("https://github.com/ArkUmbra/rpi-sense-hat-java") {
+    gitRepository("https://github.com/ArkUmbra/rpi-sense-hat-java") {
+        producesModule("rpi.sensehat.hat:java-executor")
+    }
+}
+
 
