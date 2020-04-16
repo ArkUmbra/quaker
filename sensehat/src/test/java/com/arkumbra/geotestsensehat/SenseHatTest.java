@@ -48,9 +48,10 @@ public class SenseHatTest {
         int counter = 0;
 
         while (counter < 20) {
-            counter++;
+            ledMatrix.clear();
             ledMatrix.setPixel(x, y, Color.GREEN);
             JoystickEvent joystickEvent = joystick.waitForEvent();
+
             Direction direction = joystickEvent.getDirection();
             switch (direction) {
                 case UP:    y++; break;
@@ -60,7 +61,7 @@ public class SenseHatTest {
                 default: continue;
             }
 
-            waitFor(100);
+            counter++;;
             // clear events ?
             // joystick.getEvents();
         }
