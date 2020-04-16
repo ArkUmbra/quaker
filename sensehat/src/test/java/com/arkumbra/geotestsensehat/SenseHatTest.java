@@ -23,7 +23,7 @@ public class SenseHatTest {
         LEDMatrix ledMatrix = senseHat.ledMatrix;
         Joystick joystick = senseHat.joystick;
 
-        ledMatrix.flipVertically();
+        //ledMatrix.flipVertically(); not supported yet...
         ledMatrix.lowLight(true);
 
         ledMatrix.showMessage("...");
@@ -39,10 +39,9 @@ public class SenseHatTest {
         LEDMatrix ledMatrix = senseHat.ledMatrix;
         Joystick joystick = senseHat.joystick;
 
-        ledMatrix.flipVertically();
         ledMatrix.lowLight(true);
 
-        ledMatrix.showMessage(".");
+        ledMatrix.showMessage("GO");
         
         int x = 3, y = 3;
         
@@ -60,9 +59,10 @@ public class SenseHatTest {
                 case LEFT:  x--; break;
                 default: continue;
             }
-            
+
+            waitFor(100);
             // clear events ?
-            joystick.getEvents();
+            // joystick.getEvents();
         }
 
 
