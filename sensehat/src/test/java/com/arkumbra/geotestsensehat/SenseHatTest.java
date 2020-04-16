@@ -6,6 +6,7 @@ import rpi.sensehat.api.LEDMatrix;
 import rpi.sensehat.api.SenseHat;
 import rpi.sensehat.api.dto.Color;
 import rpi.sensehat.api.dto.JoystickEvent;
+import rpi.sensehat.api.dto.joystick.Action;
 import rpi.sensehat.api.dto.joystick.Direction;
 
 public class SenseHatTest {
@@ -51,6 +52,10 @@ public class SenseHatTest {
             ledMatrix.clear();
             ledMatrix.setPixel(x, y, Color.GREEN);
             JoystickEvent joystickEvent = joystick.waitForEvent();
+            if (joystickEvent.getAction() == Action.RELEASED) {
+                // skip
+                continue;
+            }
 
             Direction direction = joystickEvent.getDirection();
             switch (direction) {
