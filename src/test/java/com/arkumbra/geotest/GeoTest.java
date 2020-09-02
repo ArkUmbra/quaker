@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.*;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -33,6 +34,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.charset.Charset;
 
+@Ignore
 public class GeoTest {
 
     private RestTemplate restTemplate;
@@ -103,7 +105,7 @@ public class GeoTest {
 
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         String xml = response.getBody();
-//        System.out.println(xml);
+        System.out.println(xml);
 
         JAXBContext context = JAXBContext.newInstance(Feed.class);
         Unmarshaller um = context.createUnmarshaller();
@@ -181,6 +183,12 @@ public class GeoTest {
         assertEquals(new BigDecimal("-141.4"), pointOfOrigin.getLongitude());
         assertEquals(new BigDecimal("50000"), pointOfOrigin.getDepth());
     }
+
+
+    // Bing Maps - Show map at location
+    // https://dev.virtualearth.net/REST/v1/Imagery/Map/Aerial/37.0,%20138.5/6?key=AnzVztQDoWEspUoq2rCdkpDLVVENsg68q_00bW73kP1A1G1tWw8yJpn1w07dI3GK
+
+    // https://dev.virtualearth.net/REST/v1/Imagery/Map/Aerial/37.0,%20138.5/6?pushpin=37.0,%20138.5;1;EQ&key=AnzVztQDoWEspUoq2rCdkpDLVVENsg68q_00bW73kP1A1G1tWw8yJpn1w07dI3GK
 
 
 

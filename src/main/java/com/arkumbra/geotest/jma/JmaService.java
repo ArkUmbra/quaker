@@ -5,15 +5,18 @@ import com.arkumbra.geotest.pojo.Earthquake;
 import com.arkumbra.geotest.jma.xml.Entry;
 import com.arkumbra.geotest.jma.xml.EventType;
 import com.arkumbra.geotest.jma.xml.Feed;
+import com.arkumbra.geotest.pojo.MapImage.MapZoom;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.transform.stream.StreamSource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -48,10 +51,13 @@ public class JmaService {
 
 
     Feed feed = pullJmaItem(JMA_UPDATE_LONGFORM, Feed.class);
+    System.out.println("Pulled feed");
 
     for (Entry entry : feed.entry) {
       String url = entry.link.getHref();
       EventType eventType = EventType.convert(entry.title);
+//      System.out.println("Pulled url " + url + ", of event type " + eventType);
+
 
       switch (eventType) {
         case Hypocentre:
@@ -60,6 +66,9 @@ public class JmaService {
           SeismicReport report = pullJmaItem(url, SeismicReport.class);
           Earthquake eq = EarthquakeFactory.createEarthquake(report, url);
           if (eq != null) {
+            XMLGregorianCalendar date = report.getHead().getReportDateTime();
+            System.out.println(date + ", " + eq.getLocation().toString());
+            System.out.println(eq.getMapImage().getMapImageUrl(MapZoom.MEDIUM));
             earthquakes.add(eq);
           }
       }

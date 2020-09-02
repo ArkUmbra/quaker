@@ -6,14 +6,24 @@ import java.util.Date;
 public class Intensity {
 
   public enum MeasurementType {
-    MAGNITUDE,
-    SHINDO
+    MAGNITUDE("M"),
+    SHINDO("震度"),
+    ;
+
+    private String typeLabel;
+    MeasurementType(String typeLabel) {
+      this.typeLabel = typeLabel;
+    }
+
+    public String getTypeLabel() {
+      return typeLabel;
+    }
   }
 
   private final MeasurementType type;
   private final BigDecimal intensityValue;
   private final boolean wasRevised;
-  private final Date revisionDate;
+    private final Date revisionDate;
 
   public Intensity(MeasurementType type, BigDecimal intensityValue, boolean wasRevised,
       Date revisionDate) {

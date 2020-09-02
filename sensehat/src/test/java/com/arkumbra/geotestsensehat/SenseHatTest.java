@@ -10,6 +10,7 @@ import rpi.sensehat.api.dto.JoystickEvent;
 import rpi.sensehat.api.dto.joystick.Action;
 import rpi.sensehat.api.dto.joystick.Direction;
 
+@Ignore
 public class SenseHatTest {
 
     @Ignore
