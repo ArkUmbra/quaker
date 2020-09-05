@@ -29,4 +29,4 @@ jobs:
       env:
         USERNAME: ${{ github.actor }}
         PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        BUILD_NUM: ${{ GITHUB_RUN_ID }}
+        BUILD_NUM: $GITHUB_RUN_ID
