@@ -10,6 +10,8 @@ version '1.0.1'
 
 sourceCompatibility = 1.8
 
+BUILD_NUM = System.getenv("BUILD_NUM")
+
 repositories {
     mavenCentral()
 }
