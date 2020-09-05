@@ -31,29 +31,19 @@ configurations {
 
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.1'
 
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.1'
+    // TODO Take out and replace with slimmer libraries
+    implementation group: 'org.springframework', name: 'spring-web', version: '5.2.3.RELEASE'
+    implementation group: 'org.springframework', name: 'spring-oxm', version: '5.2.3.RELEASE'
 
-    // https://mvnrepository.com/artifact/org.springframework/spring-web
-    compile group: 'org.springframework', name: 'spring-web', version: '5.2.3.RELEASE'
+    implementation group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.1'
 
-    // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
-    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.1'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+    implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
 
-    // https://mvnrepository.com/artifact/org.springframework/spring-oxm
-    compile group: 'org.springframework', name: 'spring-oxm', version: '5.2.3.RELEASE'
 
-    runtime group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
-    runtime group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
-}
-
-jar {
-    from {
-        configurations.compileClasspath.filter{ it.exists() }.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    exclude {}
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 publishing {
