@@ -5,8 +5,8 @@ plugins {
     id "maven-publish"
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'com.arkumbra'
+version '1.0.1'
 
 sourceCompatibility = 1.8
 
@@ -69,6 +69,10 @@ publishing {
     }
     publications {
         gpr(MavenPublication) {
+            groupId = 'com.arkumbra'
+            artifactId = 'geotest'
+            version = '0.1.0'
+
             from(components.java)
         }
     }
