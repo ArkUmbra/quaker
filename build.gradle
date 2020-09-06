@@ -6,9 +6,11 @@ plugins {
 }
 
 group 'com.arkumbra'
-version '1.0.1'
+version '0.2.0'
 
 sourceCompatibility = 1.8
+
+def BUILD_NUM = System.getenv("BUILD_NUM")
 
 repositories {
     mavenCentral()
@@ -54,7 +56,7 @@ publishing {
         gpr(MavenPublication) {
             groupId = 'com.arkumbra'
             artifactId = 'geotest'
-            version = '0.1.0'
+            version = '0.2.0.' + BUILD_NUM
 
             from(components.java)
         }
