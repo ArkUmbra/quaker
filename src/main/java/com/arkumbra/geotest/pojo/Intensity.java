@@ -8,6 +8,7 @@ public class Intensity {
   public enum MeasurementType {
     MAGNITUDE("M"),
     SHINDO("震度"),
+    NOT_MEASURED("")
     ;
 
     private String typeLabel;
@@ -23,7 +24,7 @@ public class Intensity {
   private final MeasurementType type;
   private final BigDecimal intensityValue;
   private final boolean wasRevised;
-    private final Date revisionDate;
+  private final Date revisionDate;
 
   public Intensity(MeasurementType type, BigDecimal intensityValue, boolean wasRevised,
       Date revisionDate) {
@@ -47,6 +48,10 @@ public class Intensity {
 
   public Date getRevisionDate() {
     return revisionDate;
+  }
+
+  public boolean hasMeasuredIntensity() {
+    return type != MeasurementType.NOT_MEASURED;
   }
 
   @Override

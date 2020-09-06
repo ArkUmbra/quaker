@@ -6,6 +6,7 @@ import com.arkumbra.geotest.pojo.Earthquake;
 import com.arkumbra.geotest.pojo.Intensity;
 import com.arkumbra.geotest.pojo.Intensity.MeasurementType;
 import com.arkumbra.geotest.pojo.Issuer;
+import com.arkumbra.geotest.pojo.NullIntensity;
 import com.arkumbra.geotest.pojo.PointOfOrigin;
 import com.arkumbra.geotest.pojo.Location;
 import com.arkumbra.geotest.utils.ListUtils;
@@ -54,9 +55,7 @@ public class EarthquakeFactory {
     }
 
     Intensity intensityMagnitude = extractIntensityMagnitude(body);
-    if (intensityMagnitude != null) {
-      intensities.add(intensityMagnitude);
-    }
+    intensities.add(intensityMagnitude);
 
     Location location = new Location(
         extractEqOrgin(body),
@@ -87,27 +86,20 @@ public class EarthquakeFactory {
     }
     String maxShindoObserved = observation.getMaxInt();
 
-    return new Intensity(
-        MeasurementType.SHINDO,
-        new BigDecimal(maxShindoObserved),
-        false,
-        null
-    );
+    if (maxShindoObserved.matches("^\\d+$")) {
+      return new Intensity(
+          MeasurementType.SHINDO,
+          new BigDecimal(maxShindoObserved),
+          false,
+          null
+      );
+    } else {
+      return new NullIntensity();
+    }
+
+
   }
   private static Intensity extractIntensityMagnitude(TypeBody body) {
-    // new BigDecimal(body.getEarthquake().get(0).getMagnitude().get(0).getValue()),
-//    TypeIntensity intensity = body.getIntensity();
-//    if (intensity == null) {
-//      System.err.println("No intensity found for ...");
-//      return null;
-//    }
-//    TypeIntensityDetail observation = intensity.getObservation();
-//    if (observation == null) {
-//      System.err.println("No observation found for ...");
-//      return null;
-//    }
-//    String maxShindoObserved = observation.getMaxInt();
-
     return new Intensity(
         MeasurementType.MAGNITUDE,
             new BigDecimal(body.getEarthquake().get(0).getMagnitude().get(0).getValue()),

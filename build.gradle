@@ -32,16 +32,9 @@ configurations {
 
 dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.1'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.+'
 
-    // TODO Take out and replace with slimmer libraries
-    implementation group: 'org.springframework', name: 'spring-web', version: '5.2.3.RELEASE'
-    implementation group: 'org.springframework', name: 'spring-oxm', version: '5.2.3.RELEASE'
-
-    implementation group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.1'
-
-    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
-    implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
-
+    runtimeOnly group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }

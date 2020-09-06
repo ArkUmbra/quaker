@@ -6,12 +6,17 @@ import com.arkumbra.geotest.jma.xml.Entry;
 import com.arkumbra.geotest.jma.xml.EventType;
 import com.arkumbra.geotest.jma.xml.Feed;
 import com.arkumbra.geotest.pojo.MapImage.MapZoom;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
+import java.net.URL;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -20,10 +25,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.transform.stream.StreamSource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.web.client.RestTemplate;
+
 
 public class JmaService {
 
@@ -32,15 +34,9 @@ public class JmaService {
 
   private static final List<EventType> EARTHQUAKE_EVENT_TYPES = new ArrayList<>();
 
-  private RestTemplate restTemplate;
-  private Jaxb2Marshaller marshaller;
 
 
   public JmaService() throws JAXBException, UnsupportedEncodingException {
-    restTemplate = new RestTemplate();
-    Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
-    restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-
     EARTHQUAKE_EVENT_TYPES.add(EventType.Hypocentre);
     EARTHQUAKE_EVENT_TYPES.add(EventType.SeismicIntensity);
     EARTHQUAKE_EVENT_TYPES.add(EventType.IntensityHypocentre);
@@ -56,7 +52,6 @@ public class JmaService {
     for (Entry entry : feed.entry) {
       String url = entry.link.getHref();
       EventType eventType = EventType.convert(entry.title);
-//      System.out.println("Pulled url " + url + ", of event type " + eventType);
 
 
       switch (eventType) {
@@ -72,9 +67,6 @@ public class JmaService {
             earthquakes.add(eq);
           }
       }
-//      if (EARTHQUAKE_EVENT_TYPES.contains(EventType.convert(entry.title))) {
-//        pullSpecificJmaFeed(entry.link.getHref(), entry.getEventType());
-//      }
     }
 
     return earthquakes;
@@ -90,15 +82,27 @@ public class JmaService {
   }
 
   public <T> T pullJmaItem(String url, Class<T> clazz) throws JAXBException, UnsupportedEncodingException {
-    ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-    String xml = response.getBody();
-//    System.out.println(xml);
+    String xmlBody = doGetRequest(url);
 
     Unmarshaller um = createUnmarshaller(clazz);
 
-    JAXBElement<T> unmarshalled = um.unmarshal(new StreamSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))), clazz);
-//        System.out.println(unmarshalled.getValue());
+    JAXBElement<T> unmarshalled = um.unmarshal(new StreamSource(new ByteArrayInputStream(xmlBody.getBytes("UTF-8"))), clazz);
     return unmarshalled.getValue();
+  }
+
+  private String doGetRequest(String url) {
+//    ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+//    String xml = response.getBody();
+
+//    InputStream is = new URL(url).openStream();
+    try (InputStream is = new URL(url).openStream()) {
+      BufferedReader in = new BufferedReader(new InputStreamReader(is));
+      return in.lines().collect(Collectors.joining());
+
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
   }
 
 
